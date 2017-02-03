@@ -2,7 +2,7 @@
 
 FireMonkey で 3Dテクスチャ を利用する方法。
 
-[![](https://j.gifs.com/3l0jLn.gif)](https://youtu.be/WNkzyVjszhc)
+[![](https://j.gifs.com/3l0jLn.gif)](https://youtu.be/3F4BaKONDXU)
 
 ----
 
