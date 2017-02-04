@@ -2,7 +2,7 @@
 
 FireMonkey で 3Dテクスチャ を利用する方法。
 
-[![](https://j.gifs.com/Bg71WN.gif)](https://youtu.be/bES7qrFqGeU)
+[![](https://github.com/LUXOPHIA/Texture3D/raw/master/--------/_SCREENSHOT/Texture3D.png)](https://youtu.be/bES7qrFqGeU)
 
 ----
 
