@@ -1,0 +1,362 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Texture3D'
+  ClientHeight = 666
+  ClientWidth = 840
+  Position = ScreenCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object TabControl1: TTabControl
+    Align = Client
+    Margins.Left = 10.000000000000000000
+    Margins.Top = 10.000000000000000000
+    Margins.Right = 10.000000000000000000
+    Margins.Bottom = 10.000000000000000000
+    Size.Width = 820.000000000000000000
+    Size.Height = 646.000000000000000000
+    Size.PlatformDefault = False
+    TabIndex = 0
+    TabOrder = 0
+    TabPosition = PlatformDefault
+    Sizes = (
+      820s
+      620s
+      820s
+      620s)
+    object TabItemV: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = True
+      Size.Width = 46.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'View'
+      ExplicitSize.cx = 70.000000000000000000
+      ExplicitSize.cy = 26.000000000000000000
+      object Viewport3D1: TViewport3D
+        Align = Client
+        Camera = Camera1
+        Color = claBlack
+        Margins.Left = 10.000000000000000000
+        Margins.Top = 10.000000000000000000
+        Margins.Right = 10.000000000000000000
+        Margins.Bottom = 10.000000000000000000
+        Size.Width = 800.000000000000000000
+        Size.Height = 600.000000000000000000
+        Size.PlatformDefault = False
+        UsingDesignCamera = False
+        OnMouseDown = Viewport3D1MouseDown
+        OnMouseMove = Viewport3D1MouseMove
+        OnMouseUp = Viewport3D1MouseUp
+        object Grid3D1: TGrid3D
+          Marks = 4.000000000000000000
+          Frequency = 1.000000000000000000
+          LineColor = x50505050
+          Position.Y = 5.010000228881836000
+          RotationAngle.X = 270.000000000000000000
+          Width = 100.000000000000000000
+          Height = 100.000000000000000000
+          Depth = 0.001000000047497451
+          HitTest = False
+          Quanternion = '(0.70710676908493,0,0,-0.70710676908493)'
+        end
+        object Light1: TLight
+          Color = claWhite
+          LightType = Directional
+          SpotCutOff = 180.000000000000000000
+          RotationAngle.X = 315.000000000000000000
+          Width = 1.000000000000000000
+          Height = 1.000000000000000000
+          Depth = 1.000000000000000000
+          Quanternion = '(0.382683485746384,0,0,-0.923879504203796)'
+        end
+        object Dummy1: TDummy
+          RotationAngle.Y = 330.000000000000000000
+          Width = 1.000000000000000000
+          Height = 1.000000000000000000
+          Depth = 1.000000000000000000
+          Quanternion = '(0,0.258819103240967,0,-0.965925812721252)'
+          object Dummy2: TDummy
+            RotationAngle.X = 330.000000000000000000
+            Width = 1.000000000000000000
+            Height = 1.000000000000000000
+            Depth = 1.000000000000000000
+            Quanternion = '(-0.258819162845612,0,0,0.965925812721252)'
+            object Camera1: TCamera
+              AngleOfView = 45.000000000000000000
+              Position.Z = -20.000000000000000000
+              Width = 1.000000000000000000
+              Height = 1.000000000000000000
+              Depth = 1.000000000000000000
+            end
+          end
+        end
+        object StrokeCube1: TStrokeCube
+          Color = claWhite
+          Width = 10.000000000000000000
+          Height = 10.000000000000000000
+          Depth = 10.000000000000000000
+          HitTest = False
+        end
+        object Dummy3: TDummy
+          Width = 1.000000000000000000
+          Height = 1.000000000000000000
+          Depth = 1.000000000000000000
+          object RoundCube1: TRoundCube
+            Width = 5.773502826690674000
+            Height = 5.773502826690674000
+            Depth = 5.773502826690674000
+            HitTest = False
+          end
+        end
+      end
+      object Timer1: TTimer
+        Interval = 10
+        OnTimer = Timer1Timer
+        Left = 35
+        Top = 61
+      end
+    end
+    object TabItemS: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 57.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'Shader'
+      ExplicitSize.cx = 70.000000000000000000
+      ExplicitSize.cy = 26.000000000000000000
+      object TabControlS: TTabControl
+        Align = Client
+        Margins.Left = 10.000000000000000000
+        Margins.Top = 10.000000000000000000
+        Margins.Right = 10.000000000000000000
+        Margins.Bottom = 10.000000000000000000
+        Size.Width = 800.000000000000000000
+        Size.Height = 600.000000000000000000
+        Size.PlatformDefault = False
+        TabIndex = 0
+        TabOrder = 0
+        TabPosition = PlatformDefault
+        Sizes = (
+          800s
+          574s
+          800s
+          574s)
+        object TabItemSV: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = True
+          Size.Width = 54.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Vertex'
+          ExplicitSize.cx = 70.000000000000000000
+          ExplicitSize.cy = 26.000000000000000000
+          object MemoSV: TMemo
+            Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+            DataDetectorTypes = []
+            Lines.Strings = (
+              
+                '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
+                '$$$$$$$$$$$$$$$$'#12304#23450#25968#12305
+              ''
+              
+                '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
+                '$$$$$$$$$$$$$$$$'#12304#35373#23450#12305
+              ''
+              
+                '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
+                '$$$$$$$$$$$$$$$$'#12304#12523#12540#12481#12531#12305
+              ''
+              
+                '//##############################################################' +
+                '################'
+              ''
+              'struct TSenderV               //'#38914#28857#12398#22793#25968#22411
+              '{'
+              '    float4 Pos :POSITION   ;  //'#20301#32622#65288#12525#12540#12459#12523#65289
+              '    float4 Tan :TANGENT    ;  //'#25509#32218#65288#12525#12540#12459#12523#65289
+              '    float4 Bin :BINORMAL   ;  //'#24467#27861#32218#65288#12525#12540#12459#12523#65289
+              '    float4 Nor :NORMAL     ;  //'#27861#32218#65288#12525#12540#12459#12523#65289
+              '    float4 Tex :TEXCOORD   ;  //'#12486#12463#12473#12481#12515#24231#27161
+              '};'
+              ''
+              'struct TResultV               //'#12501#12521#12464#12513#12531#12488#12398#22793#25968#22411
+              '{'
+              '    float4 Scr :SV_Position;  //'#20301#32622#65288#12473#12463#12522#12540#12531#65289
+              '    float4 Pos :TEXCOORD0  ;  //'#20301#32622#65288#12464#12525#12540#12496#12523#65289
+              '    float4 Tan :TANGENT    ;  //'#25509#32218#65288#12464#12525#12540#12496#12523#65289
+              '    float4 Bin :BINORMAL   ;  //'#24467#27861#32218#65288#12464#12525#12540#12496#12523#65289
+              '    float4 Nor :NORMAL     ;  //'#27861#32218#65288#12464#12525#12540#12496#12523#65289
+              '    float4 Tex :TEXCOORD1  ;  //'#12486#12463#12473#12481#12515#24231#27161
+              '};'
+              ''
+              
+                '////////////////////////////////////////////////////////////////' +
+                '////////////////'
+              ''
+              'TResultV MainV( TSenderV _Sender )'
+              '{'
+              '    TResultV _Result;'
+              ''
+              '    _Result.Scr = mul( _Sender.Pos, _FMatrixMVP );'
+              '    _Result.Pos = mul( _Sender.Pos, _FMatrixMV  );'
+              '    _Result.Tan = mul( _Sender.Tan, _IMatrixMV  );'
+              '    _Result.Bin = mul( _Sender.Bin, _IMatrixMV  );'
+              '    _Result.Nor = mul( _Sender.Nor, _IMatrixMV  );'
+              '    _Result.Tex =      _Sender.Tex               ;'
+              ''
+              '    return _Result;'
+              '}'
+              ''
+              
+                '//##############################################################' +
+                '################')
+            StyledSettings = [Size, FontColor]
+            TextSettings.Font.Family = #65325#65331' '#12468#12471#12483#12463
+            Align = Client
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Margins.Bottom = 10.000000000000000000
+            Size.Width = 780.000000000000000000
+            Size.Height = 554.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Viewport.Width = 776.000000000000000000
+            Viewport.Height = 550.000000000000000000
+          end
+        end
+        object TabItemSP: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 45.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Pixel'
+          ExplicitSize.cx = 70.000000000000000000
+          ExplicitSize.cy = 26.000000000000000000
+          object MemoSP: TMemo
+            Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+            DataDetectorTypes = []
+            Lines.Strings = (
+              
+                '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
+                '$$$$$$$$$$$$$$$$'#12304#23450#25968#12305
+              ''
+              
+                '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
+                '$$$$$$$$$$$$$$$$'#12304#35373#23450#12305
+              ''
+              'SamplerState _SamplerState {};'
+              ''
+              
+                '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
+                '$$$$$$$$$$$$$$$$'#12304#12523#12540#12481#12531#12305
+              ''
+              
+                '//##############################################################' +
+                '################'
+              ''
+              'struct TSenderP               //'#12501#12521#12464#12513#12531#12488#12398#22793#25968#22411
+              '{'
+              '    float4 Scr :SV_Position;  //'#20301#32622#65288#12473#12463#12522#12540#12531#65289
+              '    float4 Pos :TEXCOORD0  ;  //'#20301#32622#65288#12464#12525#12540#12496#12523#65289
+              '    float4 Tan :TANGENT    ;  //'#25509#32218#65288#12464#12525#12540#12496#12523#65289
+              '    float4 Bin :BINORMAL   ;  //'#24467#27861#32218#65288#12464#12525#12540#12496#12523#65289
+              '    float4 Nor :NORMAL     ;  //'#27861#32218#65288#12464#12525#12540#12496#12523#65289
+              '    float4 Tex :TEXCOORD1  ;  //'#12486#12463#12473#12481#12515#24231#27161
+              '};'
+              ''
+              'struct TResultP               //'#12500#12463#12475#12523#12398#22793#25968#22411
+              '{'
+              '    float4 Col :SV_Target  ;  //'#33394
+              '};'
+              ''
+              
+                '////////////////////////////////////////////////////////////////' +
+                '////////////////'
+              ''
+              'TResultP MainP( TSenderP _Sender )'
+              '{'
+              '    TResultP _Result;'
+              ''
+              
+                '    float3 Nor = normalize( _Sender.Nor.xyz );                  ' +
+                '                //'#34920#38754#27861#32218#65288#12464#12525#12540#12496#12523#65289
+              
+                '    float3 Tan = normalize( _Sender.Tan.xyz );                  ' +
+                '                //'#34920#38754#25509#32218#65288#12464#12525#12540#12496#12523#65289
+              
+                '    float3 Bin = normalize( _Sender.Bin.xyz );                  ' +
+                '                //'#34920#38754#24467#27861#32218#65288#12464#12525#12540#12496#12523#65289
+              
+                '    float3 Lig = -_Light.Dir.xyz;                               ' +
+                '                //'#20809#32218#26041#21521#65288#12464#12525#12540#12496#12523#65289
+              
+                '    float3 Vie = normalize( _EyePos.xyz - _Sender.Pos.xyz );    ' +
+                '                //'#35222#32218#26041#21521#65288#12464#12525#12540#12496#12523#65289
+              
+                '    float3 Hal = normalize( Lig + Vie );                        ' +
+                '                //'#12495#12540#12501#12505#12463#12488#12523
+              ''
+              '    float3 T;'
+              '    T.x = ( _Sender.Pos.x + 5 ) / 10;'
+              '    T.y = ( _Sender.Pos.y + 5 ) / 10;'
+              '    T.z = ( _Sender.Pos.z + 5 ) / 10;'
+              ''
+              '    _Result.Col = _Texture3D.Sample( _SamplerState, T );'
+              ''
+              
+                '    //----------------------------------------------------------' +
+                '----------------'
+              ''
+              '    _Result.Col.a = 1;'
+              ''
+              '    _Result.Col = _Opacity * _Result.Col;'
+              ''
+              '    return _Result;'
+              '}'
+              ''
+              
+                '//##############################################################' +
+                '################'
+              '')
+            StyledSettings = [Size, Style, FontColor]
+            TextSettings.Font.Family = #65325#65331' '#12468#12471#12483#12463
+            Align = Client
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Margins.Bottom = 10.000000000000000000
+            Size.Width = 780.000000000000000000
+            Size.Height = 554.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Viewport.Width = 760.000000000000000000
+            Viewport.Height = 550.000000000000000000
+          end
+        end
+      end
+    end
+  end
+end
