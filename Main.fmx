@@ -267,7 +267,13 @@ object Form1: TForm1
                 '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
                 '$$$$$$$$$$$$$$$$'#12304#35373#23450#12305
               ''
-              'SamplerState _SamplerState {};'
+              'SamplerState _SamplerState'
+              '{'
+              '    Filter   = MIN_MAG_MIP_POINT;'
+              '    AddressU = ADDRESS_MIRROR;'
+              '    AddressV = ADDRESS_MIRROR;'
+              '    AddressW = ADDRESS_MIRROR;'
+              '};'
               ''
               
                 '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +

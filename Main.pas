@@ -75,15 +75,15 @@ begin
 
           for Z := 0 to Depth-1 do
           begin
-               P.Z := ( Z / Depth - 0.5 ) * 10;
+               P.Z := ( ( Z + 0.5 ) / Depth - 0.5 ) * 10;
 
                for Y := 0 to Height-1 do
                begin
-                    P.Y := ( Y / Height - 0.5 ) * 10;
+                    P.Y := ( ( Y + 0.5 ) / Height - 0.5 ) * 10;
 
                     for X := 0 to Width-1 do
                     begin
-                         P.X := ( X / Width - 0.5 ) * 10;
+                         P.X := ( ( X + 0.5 ) / Width - 0.5 ) * 10;
 
                          C.R := ( 1 + Cos( 3 * Pi2 * Roo2( Pow2( P.Y ) + Pow2( P.Z ) ) ) ) / 2;
                          C.G := ( 1 + Cos( 1 * Pi2 * Roo2( Pow2( P.X ) + Pow2( P.Y ) ) ) ) / 2;
