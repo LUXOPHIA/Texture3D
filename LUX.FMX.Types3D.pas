@@ -2,9 +2,9 @@
 
 interface //#################################################################### ■
 
-uses System.SysUtils, System.Messaging,
+uses System.UITypes, System.Messaging,
      FMX.Types3D,
-     LUX;
+     LUX, LUX.Lattice.T3;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
@@ -19,10 +19,14 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        _ContextLostId              :Integer;
        _ContextResetId             :Integer;
        _RequireInitializeAfterLost :Boolean;
-       _Bits                       :TBytes;
      protected
-       _Depth :Integer;
+       _Map :TArray3D;
        ///// アクセス
+       function GetWidth :Integer;
+       procedure SetWidth( const Width_:Integer );
+       function GetHeight :Integer;
+       procedure SetHeight( const Height_:Integer );
+       function GetDepth :Integer;
        procedure SetDepth( const Depth_:Integer );
        ///// メソッド
        procedure ContextLostHandler( const Sender:TObject; const Msg:TMessage );
@@ -31,14 +35,31 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        constructor Create; override;
        destructor Destroy; override;
        ///// プロパティ
-       property Depth :Integer read _Depth write SetDepth;
+       property Map    :TArray3D read   _Map                   ;
+       property Width  :Integer  read GetWidth  write SetWidth ;
+       property Height :Integer  read GetHeight write SetHeight;
+       property Depth  :Integer  read GetDepth  write SetDepth ;
        ///// メソッド
-       procedure SetSize( const Width_,Height_,Depth_:Integer );
        function IsEmpty :Boolean;
-       procedure UpdateTexture( const Bits_:Pointer; const Pitch_:Integer );
+       procedure UpdateTexture;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TTexture3D
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TTexture3DBGRA
+
+     TTexture3DBGRA = class( TTexture3D )
+     private
+     protected
+       ///// アクセス
+       function GetMap :TArray3D<TAlphaColor>;
+       function GetPixels( const X_,Y_,Z_:Integer ) :TAlphaColor;
+       procedure SetPixels( const X_,Y_,Z_:Integer; const Pixel_:TAlphaColor );
+     public
+       constructor Create; override;
+       destructor Destroy; override;
+       ///// プロパティ
+       property Map                              :TArray3D<TAlphaColor> read GetMap                   ;
+       property Pixels[ const X_,Y_,Z_:Integer ] :TAlphaColor           read GetPixels write SetPixels;
+     end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
 
@@ -47,6 +68,8 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
 
 implementation //############################################################### ■
+
+uses FMX.Types;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
 
@@ -60,11 +83,40 @@ implementation //###############################################################
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
+function TTexture3D.GetWidth :Integer;
+begin
+     Result := _Map.CountX;
+end;
+
+procedure TTexture3D.SetWidth( const Width_:Integer );
+begin
+     inherited Width := Width_;
+
+     _Map.CountX := Width_;
+end;
+
+function TTexture3D.GetHeight :Integer;
+begin
+     Result := _Map.CountY;
+end;
+
+procedure TTexture3D.SetHeight( const Height_:Integer );
+begin
+     inherited Height := Height_;
+
+     _Map.CountY := Height_;
+end;
+
+function TTexture3D.GetDepth :Integer;
+begin
+     Result := _Map.CountZ;
+end;
+
 procedure TTexture3D.SetDepth( const Depth_:Integer );
 begin
      Finalize;
 
-     _Depth := Depth_;
+     _Map.CountZ := Depth_;
 end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
@@ -87,7 +139,7 @@ begin
 
           _RequireInitializeAfterLost := False;
 
-         UpdateTexture( @_Bits[0], Width * BytesPerPixel );
+          UpdateTexture;
      end;
 end;
 
@@ -113,19 +165,53 @@ end;
 
 function TTexture3D.IsEmpty: Boolean;
 begin
-     Result := ( Width * Height * _Depth = 0 );
+     Result := ( Width * Height * Depth = 0 );
 end;
 
-procedure TTexture3D.SetSize( const Width_,Height_,Depth_:Integer );
+procedure TTexture3D.UpdateTexture;
 begin
-     inherited SetSize( Width_, Height_ );
-
-     _Depth := Depth_;
+     if Assigned( _Map ) then TContextManager.DefaultContextClass.UpdateTexture( Self, _Map.Lines[ 0, 0 ], _Map.StepY );
 end;
 
-procedure TTexture3D.UpdateTexture( const Bits_:Pointer; const Pitch_:Integer );
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TTexture3DBGRA
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
+
+function TTexture3DBGRA.GetMap :TArray3D<TAlphaColor>;
 begin
-     TContextManager.DefaultContextClass.UpdateTexture( Self, Bits_, Pitch_ );
+     Result := _Map as TArray3D<TAlphaColor>;
+end;
+
+//------------------------------------------------------------------------------
+
+function TTexture3DBGRA.GetPixels( const X_,Y_,Z_:Integer ) :TAlphaColor;
+begin
+     Result := Map[ X_, Y_, Z_ ];
+end;
+
+procedure TTexture3DBGRA.SetPixels( const X_,Y_,Z_:Integer; const Pixel_:TAlphaColor );
+begin
+     Map[ X_, Y_, Z_ ] := Pixel_;
+end;
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
+
+constructor TTexture3DBGRA.Create;
+begin
+     inherited;
+
+     _Map := TArray3D<TAlphaColor>.Create;
+
+     PixelFormat := TPixelFormat.BGRA;
+end;
+
+destructor TTexture3DBGRA.Destroy;
+begin
+     _Map.Free;
+
+     inherited;
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
