@@ -67,7 +67,7 @@ var
    P :TSingle3D;
    C :TAlphaColorF;
 begin
-     with _MyMaterial.Texture3D as TTexture3DBGRA do
+     with _MyMaterial.Texture3D do
      begin
           Width  := 128;
           Height := 128;

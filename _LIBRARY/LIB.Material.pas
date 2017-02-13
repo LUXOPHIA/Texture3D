@@ -2,7 +2,7 @@
 
 interface //#################################################################### ■
 
-uses System.Classes,
+uses System.Classes, System.UITypes,
      FMX.Types3D,
      LUX, LUX.FMX.Material, LUX.FMX.Types3D;
 
@@ -23,14 +23,14 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        _Light      :TShaderVarLight;
        _EyePos     :TShaderVarVector3D;
        _Opacity    :TShaderVarSingle;
-       _Texture3D  :TShaderVarTexture3D;
+       _Texture3D  :TShaderVarTexture3D<TTexture3DBGRA>;
        ///// メソッド
        procedure DoApply( const Context_:TContext3D ); override;
      public
        constructor Create; override;
        destructor Destroy; override;
        ///// プロパティ
-       property Texture3D :TShaderVarTexture3D read _Texture3D;
+       property Texture3D :TShaderVarTexture3D<TTexture3DBGRA> read _Texture3D;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMyMaterialSource
@@ -39,10 +39,10 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
      protected
        ///// アクセス
-       function GetTexture3D :TTexture3D;
+       function GetTexture3D :TTexture3DBGRA;
      public
        ///// プロパティ
-       property Texture3D :TTexture3D read GetTexture3D;
+       property Texture3D :TTexture3DBGRA read GetTexture3D;
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -97,7 +97,7 @@ begin
      _Light      := TShaderVarLight    .Create( '_Light'      );
      _EyePos     := TShaderVarVector3D .Create( '_EyePos'     );
      _Opacity    := TShaderVarSingle   .Create( '_Opacity'    );
-     _Texture3D  := TShaderVarTexture3D.Create( '_Texture3D'  );
+     _Texture3D  := TShaderVarTexture3D<TTexture3DBGRA>.Create( '_Texture3D'  );
 
      _ShaderV.Vars := [ _FMatrixMVP,
                         _FMatrixMV ,
@@ -133,7 +133,7 @@ end;
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TMyMaterialSource.GetTexture3D :TTexture3D;
+function TMyMaterialSource.GetTexture3D :TTexture3DBGRA;
 begin
      Result := _Material.Texture3D.Value;
 end;
