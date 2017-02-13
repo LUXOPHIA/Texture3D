@@ -91,12 +91,12 @@ constructor TMyMaterial.Create;
 begin
      inherited;
 
-     _FMatrixMVP := TShaderVarMatrix3D .Create( '_FMatrixMVP' );
-     _FMatrixMV  := TShaderVarMatrix3D .Create( '_FMatrixMV'  );
-     _TIMatrixMV := TShaderVarMatrix3D .Create( '_IMatrixMV'  );
-     _Light      := TShaderVarLight    .Create( '_Light'      );
-     _EyePos     := TShaderVarVector3D .Create( '_EyePos'     );
-     _Opacity    := TShaderVarSingle   .Create( '_Opacity'    );
+     _FMatrixMVP := TShaderVarMatrix3D                 .Create( '_FMatrixMVP' );
+     _FMatrixMV  := TShaderVarMatrix3D                 .Create( '_FMatrixMV'  );
+     _TIMatrixMV := TShaderVarMatrix3D                 .Create( '_IMatrixMV'  );
+     _Light      := TShaderVarLight                    .Create( '_Light'      );
+     _EyePos     := TShaderVarVector3D                 .Create( '_EyePos'     );
+     _Opacity    := TShaderVarSingle                   .Create( '_Opacity'    );
      _Texture3D  := TShaderVarTexture3D<TTexture3DBGRA>.Create( '_Texture3D'  );
 
      _ShaderV.Vars := [ _FMatrixMVP,

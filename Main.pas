@@ -28,9 +28,17 @@ type
       TabItemS: TTabItem;
         TabControlS: TTabControl;
           TabItemSV: TTabItem;
-            MemoSV: TMemo;
+            TabControlSV: TTabControl;
+              TabItemSVC: TTabItem;
+                MemoSVC: TMemo;
+              TabItemSVE: TTabItem;
+                MemoSVE: TMemo;
           TabItemSP: TTabItem;
-            MemoSP: TMemo;
+            TabControlSP: TTabControl;
+              TabItemSPC: TTabItem;
+                MemoSPC: TMemo;
+              TabItemSPE: TTabItem;
+                MemoSPE: TMemo;
     procedure FormCreate(Sender: TObject);
     procedure Viewport3D1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure Viewport3D1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
@@ -101,6 +109,8 @@ end;
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 procedure TForm1.FormCreate(Sender: TObject);
+var
+   T :String;
 begin
      Assert( Viewport3D1.Context.ClassName = 'TLuxDX11Context', 'TLuxDX11Context クラスが適用されていません。' );
 
@@ -118,8 +128,33 @@ begin
 
      with _MyMaterial do
      begin
-          ShaderV.Source.Text := MemoSV.Text;
-          ShaderP.Source.Text := MemoSP.Text;
+          with ShaderV do
+          begin
+               Source.Text := MemoSVC.Text;
+
+               for T in Errors.Keys do
+               begin
+                    with MemoSVE.Lines do
+                    begin
+                         Add( '▼ ' + T   );
+                         Add( Errors[ T ] );
+                    end;
+               end;
+          end;
+
+          with ShaderP do
+          begin
+               Source.Text := MemoSPC.Text;
+
+               for T in Errors.Keys do
+               begin
+                    with MemoSPE.Lines do
+                    begin
+                         Add( '▼ ' + T   );
+                         Add( Errors[ T ] );
+                    end;
+               end;
+          end;
      end;
 
      MakeTexture3D;
