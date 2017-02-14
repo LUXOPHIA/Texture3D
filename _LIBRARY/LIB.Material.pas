@@ -17,13 +17,13 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TMyMaterial = class( TLuxMaterial )
      private
      protected
-       _FMatrixMVP :TShaderVarMatrix3D;
-       _FMatrixMV  :TShaderVarMatrix3D;
-       _TIMatrixMV :TShaderVarMatrix3D;
-       _Light      :TShaderVarLight;
-       _EyePos     :TShaderVarVector3D;
-       _Opacity    :TShaderVarSingle;
-       _Texture3D  :TShaderVarTexture3D<TTexture3DBGRA>;
+       _MatrixLS  :TShaderVarMatrix3D;
+       _MatrixLG  :TShaderVarMatrix3D;
+       _MatrixGL  :TShaderVarMatrix3D;
+       _Light     :TShaderVarLight;
+       _EyePos    :TShaderVarVector3D;
+       _Opacity   :TShaderVarSingle;
+       _Texture3D :TShaderVarTexture3D<TTexture3DBGRA>;
        ///// メソッド
        procedure DoApply( const Context_:TContext3D ); override;
      public
@@ -73,12 +73,12 @@ begin
      begin
           SetShaders( _ShaderV.Shader, _ShaderP.Shader );
 
-          _FMatrixMVP.Value := CurrentModelViewProjectionMatrix;
-          _FMatrixMV .Value := CurrentMatrix;
-          _TIMatrixMV.Value := CurrentMatrix.Inverse.Transpose;
-          _Light     .Value := Lights[ 0 ];
-          _EyePos    .Value := CurrentCameraInvMatrix.M[ 3 ];
-          _Opacity   .Value := CurrentOpacity;
+          _MatrixLS.Value := CurrentModelViewProjectionMatrix;
+          _MatrixLG.Value := CurrentMatrix;
+          _MatrixGL.Value := CurrentMatrix.Inverse.Transpose;
+          _Light   .Value := Lights[ 0 ];
+          _EyePos  .Value := CurrentCameraInvMatrix.M[ 3 ];
+          _Opacity .Value := CurrentOpacity;
      end;
 
      _ShaderV.SendVars( Context_ );
@@ -91,36 +91,36 @@ constructor TMyMaterial.Create;
 begin
      inherited;
 
-     _FMatrixMVP := TShaderVarMatrix3D                 .Create( '_FMatrixMVP' );
-     _FMatrixMV  := TShaderVarMatrix3D                 .Create( '_FMatrixMV'  );
-     _TIMatrixMV := TShaderVarMatrix3D                 .Create( '_IMatrixMV'  );
-     _Light      := TShaderVarLight                    .Create( '_Light'      );
-     _EyePos     := TShaderVarVector3D                 .Create( '_EyePos'     );
-     _Opacity    := TShaderVarSingle                   .Create( '_Opacity'    );
-     _Texture3D  := TShaderVarTexture3D<TTexture3DBGRA>.Create( '_Texture3D'  );
+     _MatrixLS  := TShaderVarMatrix3D                 .Create( '_MatrixLS'  );
+     _MatrixLG  := TShaderVarMatrix3D                 .Create( '_MatrixLG'  );
+     _MatrixGL  := TShaderVarMatrix3D                 .Create( '_MatrixGL'  );
+     _Light     := TShaderVarLight                    .Create( '_Light'     );
+     _EyePos    := TShaderVarVector3D                 .Create( '_EyePos'    );
+     _Opacity   := TShaderVarSingle                   .Create( '_Opacity'   );
+     _Texture3D := TShaderVarTexture3D<TTexture3DBGRA>.Create( '_Texture3D' );
 
-     _ShaderV.Vars := [ _FMatrixMVP,
-                        _FMatrixMV ,
-                        _TIMatrixMV ];
+     _ShaderV.Vars := [ _MatrixLS ,
+                        _MatrixLG ,
+                        _MatrixGL  ];
 
-     _ShaderP.Vars := [ _FMatrixMVP,
-                        _FMatrixMV ,
-                        _TIMatrixMV,
-                        _Light     ,
-                        _EyePos    ,
-                        _Opacity   ,
-                        _Texture3D  ];
+     _ShaderP.Vars := [ _MatrixLS ,
+                        _MatrixLG ,
+                        _MatrixGL ,
+                        _Light    ,
+                        _EyePos   ,
+                        _Opacity  ,
+                        _Texture3D ];
 end;
 
 destructor TMyMaterial.Destroy;
 begin
-     _FMatrixMVP.Free;
-     _FMatrixMV .Free;
-     _TIMatrixMV.Free;
-     _Light     .Free;
-     _EyePos    .Free;
-     _Opacity   .Free;
-     _Texture3D .Free;
+     _MatrixLS .Free;
+     _MatrixLG .Free;
+     _MatrixGL .Free;
+     _Light    .Free;
+     _EyePos   .Free;
+     _Opacity  .Free;
+     _Texture3D.Free;
 
      inherited;
 end;

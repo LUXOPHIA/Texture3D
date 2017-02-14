@@ -126,6 +126,9 @@ begin
           MaterialSource := _MyMaterial;
      end;
 
+     MemoSVC.Lines.LoadFromFile( '..\..\_LIBRARY\ShaderV.hlsl' );
+     MemoSPC.Lines.LoadFromFile( '..\..\_LIBRARY\ShaderP.hlsl' );
+
      with _MyMaterial do
      begin
           with ShaderV do
@@ -194,7 +197,7 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-     with Dummy3.RotationAngle do Y := Y + 1;
+     with Dummy3.RotationAngle do Y := Y - 1;
 end;
 
 end. //#########################################################################
