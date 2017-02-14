@@ -126,8 +126,8 @@ begin
           MaterialSource := _MyMaterial;
      end;
 
-     MemoSVC.Lines.LoadFromFile( '..\..\_LIBRARY\ShaderV.hlsl' );
-     MemoSPC.Lines.LoadFromFile( '..\..\_LIBRARY\ShaderP.hlsl' );
+     MemoSVC.Lines.LoadFromFile( '..\..\_DATA\ShaderV.hlsl' );
+     MemoSPC.Lines.LoadFromFile( '..\..\_DATA\ShaderP.hlsl' );
 
      with _MyMaterial do
      begin
